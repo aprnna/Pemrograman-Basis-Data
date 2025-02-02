@@ -1,6 +1,6 @@
 import getResponse from "@/utils/getResponse";
 import { createClient } from "@/utils/supabase/server";
-import { Kategori, PrismaClient } from "@prisma/client";
+import { menu_kategori, PrismaClient } from "@prisma/client";
 import { NextRequest } from "next/server";
 
 const prisma  = new PrismaClient();
@@ -23,11 +23,11 @@ export async function PUT(req:NextRequest,{params}:any) {
       newImg = dataImg.publicUrl
     }
     const MenuUpdate = await prisma.menu.update({
-      where: { id_menu: parseInt(id) },
+      where: { id: parseInt(id) },
       data: {
         nama: data.get('nama') as string,
-        harga: data.get('harga') as unknown as number,
-        kategori: data.get('kategori') as Kategori,
+        harga: parseInt(data.get('harga') as string),
+        kategori: data.get('kategori') as menu_kategori,
         foto: newImg ? newImg : (data.get('oldFoto') as string),
       },
     });
@@ -48,7 +48,7 @@ export async function GET(req:NextRequest,{params}:any) {
   try {
     const { id } = params;
     const data = await prisma.menu.findFirst({
-      where: { id_menu: parseInt(id) },
+      where: { id: parseInt(id) },
     });
 
     if (!data) {
@@ -67,7 +67,7 @@ export async function DELETE(req:NextRequest,{params}:any) {
   try {
     const { id } = params;
     const deletedData = await prisma.menu.delete({
-      where: { id_menu: parseInt(id) },
+      where: { id: parseInt(id) },
     });
 
     return getResponse(deletedData, "Success Delete Menu", 200);

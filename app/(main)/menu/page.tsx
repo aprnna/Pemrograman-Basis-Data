@@ -8,10 +8,36 @@ import { useDisclosure } from "@nextui-org/modal";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import FormMenu from "./formMenu";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { MyDocument } from "@/components/pdf/myDocument";
+
+const tableHeaders = [
+  {
+    key: "nama",
+    label: "Nama Makanan",
+    render: (value: any) => value,
+  },
+  {
+    key: "harga",
+    label: "Harga",
+    render: (value: any) => value,
+  },
+  {
+    key: "kategori",
+    label: "Kategori",
+    render: (value: any) => value,
+  },
+  {
+    key: "tersedia",
+    label: "Tersedia",
+    render: (value: any) => (value ? "Ya" : "Tidak"),
+  },
+];
 
 export default function Page() {
   const modal = useDisclosure();
   const [loading, setLoading] = useState(false);
+  const [dataExport, setDataExport] = useState([]);
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -35,6 +61,18 @@ export default function Page() {
       <TopContent />
       {/* <TableMenu /> */}
       <Head>
+        <PDFDownloadLink
+          document={
+            <MyDocument
+              title="Menu"
+              tableHeaders={tableHeaders}
+              data={dataExport}
+            />
+          }
+          fileName="Report-Menu.pdf"
+        >
+          <Button>Export Menu</Button>
+        </PDFDownloadLink>
         <Button onPress={modal.onOpen}>Tambah Menu</Button>
       </Head>
       <Modal
@@ -50,7 +88,7 @@ export default function Page() {
       </Modal>
       <div className="flex overflow-hidden">
         <div className="flex-1  flex flex-row overflow-auto">
-          <TableMenu />
+          <TableMenu setDataExport={setDataExport} />
         </div>
       </div>
     </div>

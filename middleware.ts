@@ -5,7 +5,6 @@ export default withAuth({
     authorized: ({ req, token }) => {
       const path = req.nextUrl.pathname;
 
-      console.log("TEST")
       if(!token) return false;
       if (path.startsWith("/admin")) {
         return token?.role === "Manager";
@@ -29,7 +28,11 @@ export const config = {
     '/admin/(.*)',
     '/admin',
     '/menu/(.*)',
-    '/menu'
+    '/menu',
+    '/pesanan',
+    '/pesanan/(.*)',
+    '/bahan_baku',
+    '/bahan_baku/(.*)',
     // '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

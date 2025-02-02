@@ -4,7 +4,7 @@ import fetchApi from "@/utils/fetchApi";
 import Table from "@/components/table";
 import { Loading } from "@/components/loading";
 
-export default function TableRiwayatBahan() {
+export default function TableRiwayatBahan({ setDataExport }: any) {
   const [bahan, setBahan] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,6 +12,7 @@ export default function TableRiwayatBahan() {
     setLoading(true);
     const { data } = await fetchApi("/bahan/riwayat", "GET");
 
+    setDataExport(data);
     setBahan(data);
     setLoading(false);
   }

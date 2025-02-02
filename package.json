@@ -8,6 +8,9 @@
 		"start": "next start",
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
+	"prisma": {
+		"seed": "node prisma/seed.mjs"
+	},
 	"dependencies": {
 		"@nextui-org/button": "2.0.34",
 		"@nextui-org/code": "2.0.29",
@@ -28,6 +31,7 @@
 		"@prisma/client": "^5.22.0",
 		"@react-aria/ssr": "3.9.4",
 		"@react-aria/visually-hidden": "3.8.12",
+		"@react-pdf/renderer": "^4.1.6",
 		"@supabase/ssr": "^0.3.0",
 		"@supabase/supabase-js": "^2.43.5",
 		"@types/node": "20.5.7",
@@ -64,6 +68,8 @@
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
-		"prisma": "^5.22.0"
+		"@ag-media/react-pdf-table": "^2.0.1",
+		"prisma": "^5.22.0",
+		"ts-node": "^10.9.2"
 	}
 }

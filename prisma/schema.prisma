@@ -8,7 +8,7 @@ datasource db {
 }
 
 model bahan_baku {
-  id_stock        Int               @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   nama            String
   jumlah          Int
   satuan          String?
@@ -22,8 +22,8 @@ model item_pesanan {
   id_menu    Int
   id_pesanan Int
   jumlah     Int
-  menu       menu    @relation(fields: [id_menu], references: [id_menu], map: "Item_Pesanan_id_menu_fkey")
-  pesanan    pesanan @relation(fields: [id_pesanan], references: [id_pesanan], map: "Item_Pesanan_id_pesanan_fkey")
+  menu       menu    @relation(fields: [id_menu], references: [id], map: "Item_Pesanan_id_menu_fkey")
+  pesanan    pesanan @relation(fields: [id_pesanan], references: [id], map: "Item_Pesanan_id_pesanan_fkey")
 
   @@index([id_menu], map: "Item_Pesanan_id_menu_fkey")
   @@index([id_pesanan], map: "Item_Pesanan_id_pesanan_fkey")
@@ -36,18 +36,18 @@ model mengelola_bahan {
   proses     mengelola_bahan_proses @default(Tambah)
   jumlah     Int
   createdAt  DateTime               @default(now())
-  bahan_baku bahan_baku             @relation(fields: [id_stock], references: [id_stock], map: "Mengelola_Bahan_id_stock_fkey")
-  users      users                  @relation(fields: [id_user], references: [id_user], map: "Mengelola_Bahan_id_user_fkey")
+  bahan_baku bahan_baku             @relation(fields: [id_stock], references: [id], map: "Mengelola_Bahan_id_stock_fkey")
+  users      users                  @relation(fields: [id_user], references: [id], map: "Mengelola_Bahan_id_user_fkey")
 
   @@index([id_stock], map: "Mengelola_Bahan_id_stock_fkey")
   @@index([id_user], map: "Mengelola_Bahan_id_user_fkey")
 }
 
 model menu {
-  id_menu      Int            @id @default(autoincrement())
+  id           Int            @id @default(autoincrement())
   nama         String
   harga        Float
-  status       Boolean        @default(false)
+  tersedia     Boolean        @default(false)
   foto         String?
   kategori     menu_kategori  @default(Makanan)
   createdAt    DateTime       @default(now())
@@ -55,7 +55,7 @@ model menu {
 }
 
 model pesanan {
-  id_pesanan   Int            @id @default(autoincrement())
+  id           Int            @id @default(autoincrement())
   id_user      Int
   no_meja      Int
   total_harga  Float?
@@ -65,13 +65,13 @@ model pesanan {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @default(now())
   item_pesanan item_pesanan[]
-  users        users          @relation(fields: [id_user], references: [id_user], map: "Pesanan_id_user_fkey")
+  users        users          @relation(fields: [id_user], references: [id], map: "Pesanan_id_user_fkey")
 
   @@index([id_user], map: "Pesanan_id_user_fkey")
 }
 
 model users {
-  id_user         Int               @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   nama            String
   password        String
   umur            Int?

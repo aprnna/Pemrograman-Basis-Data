@@ -12,10 +12,36 @@ import { toast } from "react-toastify";
 import SearchBar2 from "@/components/SearchBar2";
 import FormKaryawan from "./formKaryawan";
 import TableKaryawan from "./TableKaryawan";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { MyDocument } from "@/components/pdf/myDocument";
+
+const tableHeaders = [
+  {
+    key: "nama",
+    label: "Nama karyawan",
+    render: (value: any) => value,
+  },
+  {
+    key: "umur",
+    label: "Umur",
+    render: (value: any) => value,
+  },
+  {
+    key: "no_telp",
+    label: "Nomor Telp",
+    render: (value: any) => value,
+  },
+  {
+    key: "role",
+    label: "Jabatan",
+    render: (value: any) => value,
+  },
+];
 
 export default function Page() {
   const modal = useDisclosure();
   const [loading, setLoading] = useState(false);
+  const [dataExport, setDataExport] = useState([]);
   const [querySearch, setQuerySearch] = useState("");
 
   async function handleSubmit(e: any) {
@@ -38,12 +64,11 @@ export default function Page() {
       setLoading(false);
 
       return toast.success("BERHASIL REGISTER");
-
-    } catch (error :any) {
+    } catch (error: any) {
       modal.onClose();
       setLoading(false);
-  
-      return toast.error(error.message || 'GAGAL REGISTER');
+
+      return toast.error(error.message || "GAGAL REGISTER");
     }
   }
 
@@ -51,6 +76,18 @@ export default function Page() {
     <div className="w-full h-screen bg-slate-50 flex flex-col">
       <TopContent />
       <Head>
+        <PDFDownloadLink
+          document={
+            <MyDocument
+              title="Karyawan"
+              tableHeaders={tableHeaders}
+              data={dataExport}
+            />
+          }
+          fileName="Report-karyawan.pdf"
+        >
+          <Button>Export Karyawan</Button>
+        </PDFDownloadLink>
         <Button onPress={modal.onOpen}>Tambah Karyawan</Button>
       </Head>
       <SearchBar2 setSearchQuery={setQuerySearch} />
@@ -67,7 +104,10 @@ export default function Page() {
       </Modal>
       <div className="flex overflow-hidden">
         <div className="flex-1  flex flex-row overflow-auto">
-          <TableKaryawan querySearch={querySearch} />
+          <TableKaryawan
+            querySearch={querySearch}
+            setDataExport={setDataExport}
+          />
         </div>
       </div>
     </div>

@@ -8,12 +8,12 @@ export async function PUT(req:NextRequest,{params}:any) {
   const { id } = params
 
   try {
-    const menu = await prisma.menu.findFirst({where:{id_menu:Number(id)}})
+    const menu = await prisma.menu.findFirst({where:{id:Number(id)}})
     
     if (!menu) return getResponse(null, "Menu not found",404)
     const updateMenuStatus = await prisma.menu.update({
-      where:{id_menu:Number(id)},
-      data:{status:!menu!.status}
+      where:{id:Number(id)},
+      data:{tersedia:!menu.tersedia}
     })
 
     return getResponse(updateMenuStatus, "Success Update Menu",200)

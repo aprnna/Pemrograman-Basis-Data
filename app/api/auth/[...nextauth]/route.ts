@@ -1,11 +1,11 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthOptions}  from "next-auth"
 import { PrismaClient } from '@prisma/client'
 import CredentialsProvider from "next-auth/providers/credentials"
 import {compareSync} from 'bcrypt-ts';
 
 const prisma = new PrismaClient()
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -38,7 +38,7 @@ const handler = NextAuth({
     
   ],
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as 'jwt',
     maxAge: 1 * 24 * 60 * 60, // 1 days
   },
   callbacks: {
@@ -57,6 +57,8 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
 
-})
+}
 
-export { handler as GET, handler as POST }
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST };

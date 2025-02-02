@@ -16,7 +16,7 @@ interface EditData {
   foto?: File;
 }
 
-export default function TableMenu() {
+export default function TableMenu({ setDataExport }: any) {
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingDelete, setLoadingDelete] = useState(false);
@@ -35,6 +35,7 @@ export default function TableMenu() {
     setLoading(true);
     const { data } = await fetchApi("/menu", "GET");
 
+    setDataExport(data);
     setMenu(data);
     setLoading(false);
   }

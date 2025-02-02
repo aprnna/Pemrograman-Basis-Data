@@ -47,8 +47,10 @@ function formatToDateTimeLocal(timestamp: string) {
 
 const Table: React.FC<TableProps> = ({ columns, data, onEdit, onDelete }) => {
   const [statuses, setStatuses] = useState(data.map((item) => item.tersedia));
+
   const handleToggle = async (index: number, dataId: any) => {
     const newStatuses = [...statuses];
+
     const response = await toast.promise(
       fetchApi(`/menu/change-status/${dataId}`, "PUT"),
       {
@@ -57,6 +59,7 @@ const Table: React.FC<TableProps> = ({ columns, data, onEdit, onDelete }) => {
         error: "Gagal mengubah status",
       }
     );
+
     newStatuses[index] = !newStatuses[index];
     setStatuses(newStatuses);
   };

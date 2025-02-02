@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { getDateTimeLocal } from "@/utils/getDateTimeLocal";
 import React, { createContext, useState, useContext, ReactNode } from "react";
@@ -21,8 +21,8 @@ interface CartContextProps {
   decreaseQuantity: (id: number) => void;
   updateDateTime: (dateTime: string) => void;
   emptyCart: (item: CartItem[]) => void;
-  setSearchQuery:(searchQuery:string) => void;
-  setSearchCategory:(searchCategory:string) => void;
+  setSearchQuery: (searchQuery: string) => void;
+  setSearchCategory: (searchCategory: string) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -32,7 +32,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [dateTime, setDateTime] = useState<string>(getDateTimeLocal());
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchCategory, setSearchCategory] = useState<string>("");
-
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
@@ -72,14 +71,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setDateTime(dateTime);
   };
 
-  const emptyCart = (item:CartItem[]) =>{
+  const emptyCart = (item: CartItem[]) => {
     setCart([]);
-  }
-
-
+  };
 
   return (
-    <CartContext.Provider value={{ cart, dateTime, searchQuery, searchCategory, addToCart, increaseQuantity, decreaseQuantity, updateDateTime, emptyCart, setSearchQuery, setSearchCategory}}>
+    <CartContext.Provider
+      value={{
+        cart,
+        dateTime,
+        searchQuery,
+        searchCategory,
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        updateDateTime,
+        emptyCart,
+        setSearchQuery,
+        setSearchCategory,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

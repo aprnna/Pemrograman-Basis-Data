@@ -5,14 +5,14 @@ import { OrderDetails } from "../ordersDetails";
 import { CartProvider } from "../allContext";
 import SearchBar from "@/components/searchBar";
 import Head from "@/components/head";
-
+import TableMenu from "../../menu/TableMenu";
 export default function Page() {
   return (
     <div className="w-full h-screen bg-slate-50 flex flex-col">
       <CartProvider>
         <TopContent />
         {/* <TableMenu /> */}
-        {/* <Head/> */}
+        <Head />
         <SearchBar />
         <div className="flex overflow-hidden">
           <div className="flex-1  flex flex-row overflow-auto">

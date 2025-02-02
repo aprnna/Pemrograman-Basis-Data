@@ -7,16 +7,19 @@ import Modal from "@/components/modal";
 import fetchApi from "@/utils/fetchApi";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
+import { User } from "@/types/user";
 interface userData {
   id: number;
 }
 export const OrderDetails = (): JSX.Element => {
   const { cart, dateTime, updateDateTime, emptyCart } = useCart();
   const [lastId, setLastID] = useState("");
-
+  const { data: session } = useSession();
+  const user = session?.user as User;
+  console.log(user);
   const [showMainModal, setShowMainModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const [user, setUser] = useState<userData>();
   const [nama, setNama] = useState("");
   const [jumlahOrang, setJumlahOrang] = useState(1);
   const [noMeja, setNoMeja] = useState(1);
@@ -64,18 +67,12 @@ export const OrderDetails = (): JSX.Element => {
     setLastID(newOrderId);
   }
 
-  async function getUser() {
-    const { data } = await fetchApi("/auth/current-user", "GET");
-
-    setUser(data);
-  }
-
   async function sendOrder() {
     const orderData = {
       atasNama: nama,
       banyak_orang: jumlahOrang,
       no_meja: noMeja,
-      status: "ongoing",
+      status: "proses",
       total_harga: total,
       items: cart.map((item) => ({
         id_menu: item.id,
@@ -103,7 +100,6 @@ export const OrderDetails = (): JSX.Element => {
   }
 
   useEffect(() => {
-    getUser();
     getLastId();
   }, []);
 
@@ -168,7 +164,7 @@ export const OrderDetails = (): JSX.Element => {
                       disabled
                       className="text-end bg-white font-medium"
                       type="text"
-                      value={user?.id.toString().split("-")[0]}
+                      value={user.id}
                     />
                   </div>
                   <div className="flex justify-between">

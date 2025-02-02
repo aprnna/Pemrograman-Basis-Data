@@ -16,7 +16,7 @@ interface EditData {
   role: string;
 }
 
-export default function TableKaryawan({ querySearch }: any) {
+export default function TableKaryawan({ querySearch, setDataExport }: any) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
@@ -37,6 +37,7 @@ export default function TableKaryawan({ querySearch }: any) {
     setLoading(true);
     const { data } = await fetchApi("/users", "GET");
 
+    setDataExport(data);
     setUsers(data);
     setLoading(false);
   }

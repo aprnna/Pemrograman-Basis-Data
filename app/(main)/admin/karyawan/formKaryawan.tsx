@@ -13,7 +13,8 @@ export default function FormKaryawan({
   initialData?: any;
   isEdit?: boolean;
 }) {
-  let { email, username, password, nama, umur, no_telp, role } = initialData || {};
+  let { email, username, password, nama, umur, no_telp, role } =
+    initialData || {};
   const [data, setData] = useState({
     email: email || "",
     username: username || "",
@@ -26,7 +27,7 @@ export default function FormKaryawan({
   const roles = [
     {
       label: "Karyawan",
-      value: "Karyawan",
+      value: "laryawan",
     },
     {
       label: "Koki",

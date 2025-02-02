@@ -13,16 +13,16 @@ export async function PUT(req:NextRequest,{params}:any) {
     const { id } = params;
     const { nama, jumlah, satuan } = await req.json();
 
-    const updateData = await prisma.bahan_Baku.update({
-      where: { id_stock: parseInt(id) },
-      data: { nama, jumlah, satuan },
+    const updateData = await prisma.bahan_baku.update({
+      where: { id: parseInt(id) },
+      data: { nama, jumlah: parseInt(jumlah), satuan },
     });
 
-    await prisma.mengelola_Bahan.create({
+    await prisma.mengelola_bahan.create({
       data: {
         jumlah: updateData.jumlah,
         id_user: session.id,
-        id_stock: updateData.id_stock,
+        id_stock: updateData.id,
         proses: "Edit",
       },
     });
@@ -39,8 +39,8 @@ export async function GET(req:NextRequest,{params}:any) {
   try {
     const { id } = params;
 
-    const data = await prisma.bahan_Baku.findUnique({
-      where: { id_stock: parseInt(id) },
+    const data = await prisma.bahan_baku.findUnique({
+      where: { id: parseInt(id) },
     });
 
     if (!data) {
@@ -63,16 +63,16 @@ export async function DELETE(req:NextRequest,{params}:any) {
     const { id } = params;
 
     // Update status bahan_baku menjadi FALSE (soft delete)
-    const deletedData = await prisma.bahan_Baku.update({
-      where: { id_stock: parseInt(id) },
+    const deletedData = await prisma.bahan_baku.update({
+      where: { id: parseInt(id) },
       data: { status: false },
     });
 
-    await prisma.mengelola_Bahan.create({
+    await prisma.mengelola_bahan.create({
       data: {
         jumlah: deletedData.jumlah,
         id_user: session.id,
-        id_stock: deletedData.id_stock,
+        id_stock: deletedData.id,
         proses: "Hapus",
       },
     });

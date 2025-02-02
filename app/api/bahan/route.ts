@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 export async function GET() {
   try {
-    const bahan_baku = await prisma.bahan_Baku.findMany({
+    const bahan_baku = await prisma.bahan_baku.findMany({
       where: {
         status: true, 
       },
@@ -27,19 +27,19 @@ export async function POST(req: NextRequest) {
   if(!session) return getResponse(null, "Failed to insert bahan, user must login",200)
   try {
     const { nama, jumlah, satuan } = await req.json()
-    const bahan_baku = await prisma.bahan_Baku.create({
+    const bahan_baku = await prisma.bahan_baku.create({
       data: {
         nama,
-        jumlah,
+        jumlah:parseInt(jumlah),
         satuan,
       },
     })
 
-    await prisma.mengelola_Bahan.create({
+    await prisma.mengelola_bahan.create({
       data: {
-        jumlah,
+        jumlah: parseInt(jumlah),
         id_user: session?.id, 
-        id_stock: bahan_baku.id_stock,
+        id_stock: bahan_baku.id,
         proses: 'Tambah',
       },
     })

@@ -27,7 +27,11 @@ export default function Head({ children }: HeadProps) {
     <>
       <div className="flex text-4xl font-bold py-4 px-12 justify-between ">
         <h1>{currentTitle}</h1>
-        {children && <div className="flex gap-4">{children}</div>}
+        {children && (
+          <div className="flex items-center justify-center gap-4">
+            {children}
+          </div>
+        )}
       </div>
       <div className="min-w-96 border-t-2 border-dashed border-gray-400 mb-4  " />
     </>

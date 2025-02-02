@@ -4,16 +4,16 @@ const prisma = new PrismaClient()
 
 export async function GET() {
   try {
-    const dataRiwayat = await prisma.mengelola_Bahan.findMany({
+    const dataRiwayat = await prisma.mengelola_bahan.findMany({
       include: {
-        user: true, 
+        users: true, 
         bahan_baku: true, 
       },
     })
 
     // Map data untuk menyusun respons
     const data = dataRiwayat.map((riwayat) => ({
-      nama_user: riwayat.user.nama,
+      nama_user: riwayat.users.nama,
       jumlah: riwayat.jumlah,
       createdAt: riwayat.createdAt,
       proses: riwayat.proses,

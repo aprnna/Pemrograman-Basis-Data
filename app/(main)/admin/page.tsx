@@ -1,7 +1,6 @@
 "use client";
 import TopContent from "@/components/top-content";
 import Head from "@/components/head";
-import { useDisclosure } from "@nextui-org/modal";
 import { useEffect, useState } from "react";
 import fetchApi from "@/utils/fetchApi";
 import TablePemasukan from "./TablePemasukan";
@@ -13,7 +12,6 @@ interface Data {
   banyakPelanggan: number;
   rataRataPesananSelesaiDalamJam: number;
 }
-
 export default function Page() {
   const [data, setData] = useState<Data>({
     profit: 0,

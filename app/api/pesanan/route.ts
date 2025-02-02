@@ -1,6 +1,6 @@
 import getResponse from '@/utils/getResponse'
 import { NextRequest} from 'next/server'
-import { PrismaClient, Status } from "@prisma/client";
+import { PrismaClient} from "@prisma/client";
 import getSessionUser from '@/utils/session';
 
 const prisma = new PrismaClient();
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const status = searchParams.get("status");
     const pesanan = await prisma.pesanan.findMany({
       where:{
-        ...(status && { status: status as Status })
+        ...(status && { status: status as any  })
       },
       include: {
         item_pesanan: true,

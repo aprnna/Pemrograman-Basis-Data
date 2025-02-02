@@ -1,13 +1,20 @@
 import getResponse from '@/utils/getResponse'
 import { createClient } from '@/utils/supabase/server'
-import { Kategori, PrismaClient } from '@prisma/client'
+import { menu_kategori, PrismaClient } from '@prisma/client'
 import { NextRequest } from 'next/server'
 
 const prisma = new PrismaClient()
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const data = await prisma.menu.findMany()
+    const { searchParams } = new URL(req.url);
+    const tersedia = searchParams.get("tersedia");
+
+    const data = await prisma.menu.findMany({
+      where: {
+        ...(tersedia ? { tersedia: tersedia  == 'true' ? true:false } : {})
+      }
+    })
     
     return getResponse(data, 'Menu fetched successfully', 200)
   } catch (error) {
@@ -37,7 +44,7 @@ export async function POST(req: NextRequest) {
       data: {
         nama: data.get('nama') as string,
         harga: data.get('harga') as unknown as number,
-        kategori: data.get('kategori') as Kategori,
+        kategori: data.get('kategori') as menu_kategori,
         foto: dataImg.publicUrl,
       },
     })

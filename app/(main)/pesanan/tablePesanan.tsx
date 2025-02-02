@@ -11,7 +11,7 @@ export default function TablePesanan() {
 
   async function getMenu() {
     setLoading(true);
-    const { data } = await fetchApi("/pesanan", "GET");
+    const { data } = await fetchApi("/pesanan?status=proses", "GET");
 
     setMenu(data);
     setLoading(false);
@@ -23,7 +23,7 @@ export default function TablePesanan() {
 
   const columns = [
     { key: "id", label: "Id Nota" },
-    { key: "atasNama", label: "Atas Nama" },
+    { key: "atas_nama", label: "Atas Nama" },
     { key: "banyak_orang", label: "Banyak Orang" },
     { key: "createdAt", label: "Dibuat" },
     { key: "status", label: "Status" },
@@ -31,7 +31,7 @@ export default function TablePesanan() {
 
   const filteredPesanan = pesanan.filter(
     (item: any) =>
-      item.atasNama.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.atas_nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.createdAt.toString().includes(searchQuery)
   );
 

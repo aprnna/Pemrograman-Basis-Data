@@ -41,7 +41,7 @@ export default function OrderCards() {
 
   async function getOrders() {
     setLoading(true);
-    const { data } = await fetchApi("/pesanan/ongoing", "GET");
+    const { data } = await fetchApi("/pesanan?status=proses", "GET");
 
     setOrders(data);
     setLoading(false);
@@ -179,7 +179,7 @@ export default function OrderCards() {
                       disabled
                       className="text-end bg-white font-medium"
                       type="text"
-                      value={formatID(orderData.order[0].id)}
+                      value={formatID(orderData.order.id)}
                     />
                   </div>
                   <div className="flex justify-between">
@@ -188,7 +188,7 @@ export default function OrderCards() {
                       disabled
                       className="text-end bg-white font-medium"
                       type="text"
-                      value={orderData.order[0].atasNama}
+                      value={orderData.order.atas_nama}
                     />
                   </div>
                   <div className="flex justify-between">
@@ -197,7 +197,7 @@ export default function OrderCards() {
                       disabled
                       className="text-end bg-white font-medium"
                       type="number"
-                      value={orderData.order[0].banyak_orang}
+                      value={orderData.order.banyak_orang}
                     />
                   </div>
                   <div className="flex justify-between">
@@ -206,9 +206,7 @@ export default function OrderCards() {
                       disabled
                       className="text-end bg-white font-medium "
                       type="timestamp"
-                      value={formatToDateTimeLocal(
-                        orderData.order[0].createdAt
-                      )}
+                      value={formatToDateTimeLocal(orderData.order.createdAt)}
                     />
                   </div>
                   <div className="flex justify-between">
@@ -217,7 +215,7 @@ export default function OrderCards() {
                       disabled
                       className="text-end bg-white font-medium w-full"
                       type="text"
-                      value={orderData.order[0].id_users.split("-")[0]}
+                      value={orderData.order.id_user}
                     />
                   </div>
                 </div>
@@ -270,7 +268,7 @@ export default function OrderCards() {
                 </div>
                 <button
                   className="bg-amber-950 text-slate-50 py-3 px-5 w-full rounded-lg mt-4 hover:bg-amber-900 transition-all duration-300"
-                  onClick={() => updateOrderStatus(orderData.order[0].id)}
+                  onClick={() => updateOrderStatus(orderData.order.id)}
                 >
                   Selesai
                 </button>

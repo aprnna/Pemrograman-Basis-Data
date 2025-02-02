@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         }
       }
     })
-
+    console.log(pesanan)
     if (!pesanan) return getResponse(null, 'no profit found', 404)
     let profit = 0
     let banyakPelanggan = 0

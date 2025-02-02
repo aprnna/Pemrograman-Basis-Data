@@ -10,24 +10,20 @@ export default function FormMenu({ initialData }: { initialData?: any }) {
   });
   const KategoriList = [
     {
-      key: "makanan",
+      key: "Makanan",
       label: "Makanan",
     },
     {
-      key: "minuman",
+      key: "Minuman",
       label: "Minuman",
     },
     {
-      key: "cemilan",
+      key: "Cemilan",
       label: "Cemilan",
     },
     {
-      key: "hidangan_utama",
-      label: "Hidangan Utama",
-    },
-    {
-      key: "pencuci_mulut",
-      label: "Pencuci Mulut",
+      key: "Lain_lain",
+      label: "Lain-lain",
     },
   ];
 

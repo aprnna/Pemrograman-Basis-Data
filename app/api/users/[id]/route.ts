@@ -1,31 +1,39 @@
-import { createClient } from "@/utils/supabase/server"
-import getResponse from "@/utils/getResponse"
+import { PrismaClient } from '@prisma/client';
+import getResponse from "@/utils/getResponse";
 import { NextRequest } from "next/server";
-import { supabaseAdmin } from "@/utils/supabase/admin";
-export async function PUT(req:NextRequest,{params}:any) {
-  const supabase = createClient()
-  const { id } = params
-  const {
-    nama, umur, no_telp, role
-  } = await req.json();
-  const { data: user, error } = await supabase.from('users').update({
-    nama: nama,
-    umur: umur,
-    no_telp: no_telp,
-    role: role,
-  }).eq('id',id).single()
 
-  if(error) return getResponse(error, 'error update user', 400) 
+const prisma = new PrismaClient();
 
-  return getResponse(user, 'users fetched successfully', 200)
+export async function PUT(req: NextRequest, { params }: any) {
+  try {
+    const { id } = params;
+    const { nama, umur, no_telp, role } = await req.json();
+    const user = await prisma.users.update({
+      where: { id: parseInt(id) },
+      data: {
+        nama: nama,
+        umur: parseInt(umur),
+        no_telp: no_telp,
+        role: role,
+      },
+    });
+
+    return getResponse(user, 'user updated successfully', 200);
+  } catch (error) {
+    return getResponse(error, 'error updating user', 400);
+  }
 }
 
-export async function DELETE(req:NextRequest,{params}:any) {
-  const supabase = supabaseAdmin()
-  const { id } = params
-  const { data, error } = await supabase.auth.admin.deleteUser(id)
-  
-  if (error) return getResponse(error, 'error delete user', 400)
+export async function DELETE(req: NextRequest, { params }: any) {
+  const { id } = params;
 
-  return getResponse(data, 'user delete successfully', 200)
+  try {
+    const user = await prisma.users.delete({
+      where: { id: parseInt(id) },
+    });
+
+    return getResponse(user, 'user deleted successfully', 200);
+  } catch (error) {
+    return getResponse(error, 'error deleting user', 400);
+  }
 }
