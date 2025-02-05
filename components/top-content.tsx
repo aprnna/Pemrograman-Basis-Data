@@ -9,7 +9,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "@/types/user";
 

@@ -6,7 +6,7 @@ import { Loading } from "@/components/loading";
 import { toast } from "react-toastify";
 import Modal from "@/components/modal2";
 import FormBahan from "./formBahan";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 
 interface EditData {
   id: number;

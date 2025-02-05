@@ -1,7 +1,7 @@
 "use client";
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Select, SelectItem } from "@heroui/select";
 import fetchApi from "@/utils/fetchApi";
 import { toast } from "react-toastify";
 import { useState } from "react";

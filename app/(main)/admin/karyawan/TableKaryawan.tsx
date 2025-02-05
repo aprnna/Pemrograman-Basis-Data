@@ -5,7 +5,7 @@ import Table from "@/components/table";
 import { Loading } from "@/components/loading";
 import { toast } from "react-toastify";
 import Modal from "@/components/modal2";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import FormKaryawan from "./formKaryawan";
 
 interface EditData {

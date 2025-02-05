@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { type User } from "@supabase/supabase-js";
 
 import { createClient } from "@/utils/supabase/client";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
+import { Button } from "@heroui/button";
+import { Input } from "@heroui/input";
 import { toast } from "react-toastify";
 
 export default function AccountForm({ user }: { user: User | null }) {

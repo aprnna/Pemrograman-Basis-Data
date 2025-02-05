@@ -7,7 +7,7 @@ import {Table,
    TableCell, 
    getKeyValue
 
-} from "@nextui-org/table";
+} from "@heroui/table";
 
 const rows = [
   {

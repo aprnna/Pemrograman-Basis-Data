@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import { title } from "@/components/primitives";
 import { Button } from "@/components/Button";
 import { useState, useEffect } from "react";
