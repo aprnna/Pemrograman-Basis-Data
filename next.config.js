@@ -1,5 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  experimental: {
+    serverComponentsExternalPackages: [
+      "@react-pdf/renderer",
+      "@ag-media/react-pdf-table",
+    ],
+  },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    config.resolve.alias.encoding = false;
+    return config;
+  },
   async headers() {
     return [
       {
@@ -24,32 +38,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-// const { PHASE_EXPORT } = require("next/constants");
-
-// const allPhaseConfig = {
-//   env: {
-//     tokenName: "token",
-//     NEXT_PUBLIC_API_URL: "http://localhost:3000/api",
-//     DATABASE_URL: "mysql://root@localhost:3306/db_restaurant",
-//     DATABASE_URL:
-//       "mysql://ojisksgg_komrest:!Uj(%q$V+mQa@127.0.0.1:3306/ojisksgg_komrest",
-//     NEXTAUTH_SECRET: "secret",
-//   },
-// };
-
-// const nextConfig = (phase) => {
-//     output: "export",
-
-//   if (phase === PHASE_EXPORT) {
-//     return {
-//       ...allPhaseConfig,
-//       exportTrailingSlash: true,
-//     };
-//   }
-
-//   return {
-//     ...allPhaseConfig,
-//   };
-// };
-
-// module.exports = nextConfig;

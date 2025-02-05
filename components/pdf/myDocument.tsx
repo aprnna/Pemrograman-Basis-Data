@@ -1,6 +1,16 @@
-import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
 import { Table, TR, TH, TD } from "@ag-media/react-pdf-table";
+import { Button } from "../Button";
 
 // Sample data
 const sampleData = [
@@ -79,7 +89,7 @@ interface MyDocumentProps {
   data: Array<any>;
 }
 
-export function MyDocument({ title, tableHeaders, data }: MyDocumentProps) {
+function MyDocument({ title, tableHeaders, data }: MyDocumentProps) {
   const Header = () => (
     <View style={styles.header}>
       <View style={styles.section}>
@@ -112,7 +122,7 @@ export function MyDocument({ title, tableHeaders, data }: MyDocumentProps) {
           </TD>
         ))}
       </TH>
-      {data.map((row, index) => (
+      {data?.map((row, index) => (
         <TR key={index}>
           <TD style={styles.tableCell}>{index + 1}</TD>
           {tableHeaders.map((header) => (
@@ -133,15 +143,53 @@ export function MyDocument({ title, tableHeaders, data }: MyDocumentProps) {
         <Header />
         <TableData />
         <View style={{ marginTop: 20 }}>
-          <Text style={styles.text}>Total Items: {sampleData.length}</Text>
-          <Text style={styles.text}>
+          <Text style={styles.text}>Total Data: {data.length}</Text>
+          {/* <Text style={styles.text}>
             Total Value: Rp{" "}
             {sampleData
               .reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
               .toLocaleString("id-ID")}
-          </Text>
+          </Text> */}
         </View>
       </Page>
     </Document>
+  );
+}
+interface PDFDocumentProps {
+  tableHeaders: Array<any>;
+  data: Array<any>;
+  nameFile: string;
+  titleDocument: string;
+  button: string;
+}
+
+export default function PDFDocument({
+  tableHeaders,
+  data,
+  nameFile,
+  titleDocument,
+  button,
+}: PDFDocumentProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return isClient ? (
+    <PDFDownloadLink
+      document={
+        <MyDocument
+          title={titleDocument}
+          tableHeaders={tableHeaders}
+          data={data}
+        />
+      }
+      fileName={nameFile + ".pdf"}
+    >
+      <Button>{button}</Button>
+    </PDFDownloadLink>
+  ) : (
+    <></>
   );
 }

@@ -6,14 +6,16 @@ import { Button } from "@/components/Button";
 import { useDisclosure } from "@heroui/modal";
 import Modal from "@/components/modal2";
 import { useState } from "react";
-import { Input } from "@heroui/input";
 import fetchApi from "@/utils/fetchApi";
 import { toast } from "react-toastify";
 import SearchBar2 from "@/components/SearchBar2";
 import FormKaryawan from "./formKaryawan";
 import TableKaryawan from "./TableKaryawan";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { MyDocument } from "@/components/pdf/myDocument";
+
+import dynamic from "next/dynamic";
+const PDFDocument = dynamic(() => import("@/components/pdf/myDocument"), {
+  ssr: false,
+});
 
 const tableHeaders = [
   {
@@ -76,18 +78,15 @@ export default function Page() {
     <div className="w-full h-screen bg-slate-50 flex flex-col">
       <TopContent />
       <Head>
-        <PDFDownloadLink
-          document={
-            <MyDocument
-              title="Karyawan"
-              tableHeaders={tableHeaders}
-              data={dataExport}
-            />
-          }
-          fileName="Report-karyawan.pdf"
-        >
-          <Button>Export Karyawan</Button>
-        </PDFDownloadLink>
+        {dataExport.length > 0 && (
+          <PDFDocument
+            tableHeaders={tableHeaders}
+            data={dataExport}
+            titleDocument="Karyawan"
+            nameFile="Report-karyawan"
+            button="Export Karyawan"
+          />
+        )}
         <Button onPress={modal.onOpen}>Tambah Karyawan</Button>
       </Head>
       <SearchBar2 setSearchQuery={setQuerySearch} />

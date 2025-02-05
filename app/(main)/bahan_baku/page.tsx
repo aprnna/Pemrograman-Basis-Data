@@ -13,10 +13,34 @@ import fetchApi from "@/utils/fetchApi";
 import { toast } from "react-toastify";
 import SearchBar2 from "@/components/SearchBar2";
 
+import dynamic from "next/dynamic";
+const PDFDocument = dynamic(() => import("@/components/pdf/myDocument"), {
+  ssr: false,
+});
+
+const tableHeaders = [
+  {
+    key: "nama",
+    label: "Nama Bahan",
+    render: (value: any) => value,
+  },
+  {
+    key: "jumlah",
+    label: "Jumlah",
+    render: (value: any) => value,
+  },
+  {
+    key: "satuan",
+    label: "Satuan",
+    render: (value: any) => value,
+  },
+];
+
 export default function Page() {
   const modal = useDisclosure();
   const [loading, setLoading] = useState(false);
   const [querySearch, setQuerySearch] = useState("");
+  const [dataExport, setDataExport] = useState([]);
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -42,6 +66,13 @@ export default function Page() {
     <div className="w-full h-screen bg-slate-50 flex flex-col">
       <TopContent />
       <Head>
+        <PDFDocument
+          data={dataExport}
+          button="Export Bahan Baku"
+          nameFile="Report-Bahan-Baku"
+          tableHeaders={tableHeaders}
+          titleDocument="Bahan Baku"
+        />
         <Button as={"a"} href="/bahan_baku/riwayat">
           Riwayat Bahan Baku
         </Button>
@@ -61,7 +92,7 @@ export default function Page() {
       <SearchBar2 setSearchQuery={setQuerySearch} />
       <div className="flex overflow-hidden">
         <div className="flex-1  flex flex-row overflow-auto">
-          <TableBahan querySearch={querySearch} />
+          <TableBahan querySearch={querySearch} setDataExport={setDataExport} />
         </div>
       </div>
     </div>

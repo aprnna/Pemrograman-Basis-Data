@@ -15,7 +15,7 @@ interface EditData {
   satuan: string;
 }
 
-export default function TableBahan({ querySearch }: any) {
+export default function TableBahan({ querySearch, setDataExport }: any) {
   const [bahan, setBahan] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
@@ -35,6 +35,7 @@ export default function TableBahan({ querySearch }: any) {
     setLoading(true);
     const { data } = await fetchApi("/bahan", "GET");
 
+    setDataExport(data);
     setBahan(data);
     setLoading(false);
   }

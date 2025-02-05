@@ -8,8 +8,11 @@ import { useDisclosure } from "@heroui/modal";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import FormMenu from "./formMenu";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { MyDocument } from "@/components/pdf/myDocument";
+
+import dynamic from "next/dynamic";
+const PDFDocument = dynamic(() => import("@/components/pdf/myDocument"), {
+  ssr: false,
+});
 
 const tableHeaders = [
   {
@@ -61,18 +64,13 @@ export default function Page() {
       <TopContent />
       {/* <TableMenu /> */}
       <Head>
-        <PDFDownloadLink
-          document={
-            <MyDocument
-              title="Menu"
-              tableHeaders={tableHeaders}
-              data={dataExport}
-            />
-          }
-          fileName="Report-Menu.pdf"
-        >
-          <Button>Export Menu</Button>
-        </PDFDownloadLink>
+        <PDFDocument
+          button="Export Menu"
+          data={dataExport}
+          nameFile="Report-Menu"
+          tableHeaders={tableHeaders}
+          titleDocument="Menu"
+        />
         <Button onPress={modal.onOpen}>Tambah Menu</Button>
       </Head>
       <Modal
