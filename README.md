@@ -1,12 +1,8 @@
-# Next.js & NextUI Template
+# KomRest: Unikom Restaurant
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+KomRest adalah sistem manajemen restoran (RMS) yang dirancang untuk membantu restoran mengelola berbagai aspek operasional mereka secara lebih efisien. Aplikasi ini berfungsi sebagai solusi digital untuk mengotomatisasi tugas-tugas manual seperti pemesanan, pengolahan pembayaran, dan pelacakan inventaris, sehingga memungkinkan staf untuk fokus pada pelayanan pelanggan dan meningkatkan efisiensi operasional restoran.
 
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
-
-## Technologies Used
+## Teknologi
 
 - [Next.js 14](https://nextjs.org/docs/getting-started)
 - [NextUI v2](https://nextui.org/)
@@ -16,19 +12,19 @@ npx create-next-app -e https://github.com/nextui-org/next-app-template
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
 
-## How to Use
+## Bagaimana cara menginstall KomRest
 
-### Use the template with create-next-app
+### Clone Repository
 
-To create a new project based on this template using `create-next-app`, run the following command:
+pertama clone repository dengan cara:
 
 ```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
+git clone https://github.com/aprnna/Pemrograman-Basis-Data.git
 ```
 
-### Install dependencies
+### Instal Dependensi
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+Anda dapat menggunakan salah satu dari berikut ini: `npm`, `yarn`, `pnpm`, `bun`, contoh menggunakan `npm`:
 
 ```bash
 npm install
@@ -40,19 +36,7 @@ npm install
 npm run dev
 ```
 
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
 ## License
 
 Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
-
-# Progress
 
