@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     const menu = await prisma.menu.create({
       data: {
         nama: data.get('nama') as string,
-        harga: data.get('harga') as unknown as number,
+        harga: parseInt(data.get('harga') as unknown as string),
         kategori: data.get('kategori') as menu_kategori,
         foto: dataImg.publicUrl,
       },
