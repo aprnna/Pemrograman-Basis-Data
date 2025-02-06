@@ -51,6 +51,7 @@ model menu {
   foto         String?
   kategori     menu_kategori  @default(Makanan)
   createdAt    DateTime       @default(now())
+  status       Boolean        @default(true)
   item_pesanan item_pesanan[]
 }
 
@@ -80,6 +81,7 @@ model users {
   email           String            @unique(map: "Users_email_key")
   username        String            @unique(map: "Users_username_key")
   createdAt       DateTime          @default(now())
+  status          Boolean           @default(true)
   mengelola_bahan mengelola_bahan[]
   pesanan         pesanan[]
 }

@@ -66,8 +66,8 @@ export async function GET(req:NextRequest,{params}:any) {
 export async function DELETE(req:NextRequest,{params}:any) {
   try {
     const { id } = params;
-    const deletedData = await prisma.menu.delete({
-      where: { id: parseInt(id) },
+    const deletedData = await prisma.menu.update({
+      where: { id: parseInt(id) },data:{status:false}
     });
 
     return getResponse(deletedData, "Success Delete Menu", 200);

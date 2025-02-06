@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
 
     const data = await prisma.menu.findMany({
       where: {
+        status: true,
         ...(tersedia ? { tersedia: tersedia  == 'true' ? true:false } : {})
       }
     })

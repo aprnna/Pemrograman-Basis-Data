@@ -21,7 +21,8 @@ export const AuthOptions: NextAuthOptions = {
 
         const user = await prisma.users.findUnique({
           where: {
-            username
+            username,
+            status: true
           }
         })
 

@@ -28,8 +28,8 @@ export async function DELETE(req: NextRequest, { params }: any) {
   const { id } = params;
 
   try {
-    const user = await prisma.users.delete({
-      where: { id: parseInt(id) },
+    const user = await prisma.users.update({
+      where: { id: parseInt(id) },data:{status:false}
     });
 
     return getResponse(user, 'user deleted successfully', 200);
