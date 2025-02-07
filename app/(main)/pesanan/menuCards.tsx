@@ -52,9 +52,8 @@ export default function MenuCards() {
   const filteredMenu = menu.filter(
     (item: any) =>
       // console.log(item)
-      (item.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.kategori.toLowerCase().includes(searchCategory.toLowerCase())) &&
-      item.tersedia == true
+      item.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.kategori.toLowerCase().includes(searchCategory.toLowerCase())
   );
 
   // const addToCart = (id: number) => {
@@ -100,7 +99,7 @@ export default function MenuCards() {
         </div>
       ) : (
         <>
-          {menu.map((item: any) => (
+          {filteredMenu.map((item: any) => (
             <div key={item.id} className="flex drop-shadow-md">
               <div
                 className={`flex flex-col bg-white ${cart.length > 0 ? "w-[260px]" : "w-[285px]"} h-auto p-6 rounded-lg items-center gap-4 hover:bg-red-100 transition-all duration-300`}
