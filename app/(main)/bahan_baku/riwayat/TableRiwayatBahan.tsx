@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import fetchApi from "@/utils/fetchApi";
 import Table from "@/components/table";

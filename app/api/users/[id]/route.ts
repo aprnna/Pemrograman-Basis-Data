@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import getResponse from "@/utils/getResponse";
 import { NextRequest } from "next/server";
+export const dynamic = 'force-dynamic'
 
 const prisma = new PrismaClient();
 
