@@ -15,7 +15,7 @@ async function main() {
   const users = await prisma.users.createMany({
     data: [
       {
-        nama: "Manager",
+        nama: "Lutfi Tampubolon",
         password: await hashSync("manager", 10),
         umur: 18,
         role: "Manager",
@@ -24,7 +24,7 @@ async function main() {
         username: "manager",
       },
       {
-        nama: "koki",
+        nama: "Marsudi Hutasoit",
         password: await hashSync("koki", 10),
         umur: 20,
         role: "Koki",
@@ -33,7 +33,7 @@ async function main() {
         username: "koki",
       },
       {
-        nama: "karyawan",
+        nama: "Tio Bakkara",
         password: await hashSync("karyawan", 10),
         umur: 22,
         role: "Karyawan",
@@ -42,7 +42,7 @@ async function main() {
         username: "karyawan",
       },
       {
-        nama: "kasir",
+        nama: "Kurniawan Siregar",
         password: await hashSync("kasir", 10),
         umur: 25,
         role: "Kasir",
@@ -161,17 +161,17 @@ async function main() {
       { nama: "Bawang", satuan: "kg", jumlah: 5 },
       { nama: "Minyak Goreng", satuan: "ml", jumlah: 500 },
       { nama: "Telur", satuan: "butir", jumlah: 2 },
-      { nama: "Daging Ayam", satuan: "g", jumlah: 650 },
-      { nama: "Daging Sapi", satuan: "g", jumlah: 500 },
-      { nama: "Tepung Terigu", satuan: "g", jumlah: 250 },
-      { nama: "Tepung Kanji", satuan: "g", jumlah: 50 },
+      { nama: "Daging Ayam", satuan: "gr", jumlah: 650 },
+      { nama: "Daging Sapi", satuan: "gr", jumlah: 500 },
+      { nama: "Tepung Terigu", satuan: "gr", jumlah: 250 },
+      { nama: "Tepung Kanji", satuan: "gr", jumlah: 50 },
       { nama: "Tahu Tempe", satuan: "g", jumlah: 100 },
-      { nama: "Tahu", satuan: "g", jumlah: 200 },
-      { nama: "Wortel", satuan: "g", jumlah: 100 },
-      { nama: "Kacang Polong", satuan: "g", jumlah: 100 },
-      { nama: "Seledri", satuan: "g", jumlah: 20 },
-      { nama: "Brokoli", satuan: "g", jumlah: 100 },
-      { nama: "Kembang Kol", satuan: "g", jumlah: 100 },
+      { nama: "Tahu", satuan: "gr", jumlah: 200 },
+      { nama: "Wortel", satuan: "gr", jumlah: 100 },
+      { nama: "Kacang Polong", satuan: "gr", jumlah: 100 },
+      { nama: "Seledri", satuan: "gr", jumlah: 20 },
+      { nama: "Brokoli", satuan: "gr", jumlah: 100 },
+      { nama: "Kembang Kol", satuan: "gr", jumlah: 100 },
     ],
   });
 
