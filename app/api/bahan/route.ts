@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    if(existBahan) return getResponse(null, "Bahan already exist", 200)
+    if(existBahan) return getResponse(null, "Bahan already exist", 400)
     const bahan_baku = await prisma.bahan_baku.create({
       data: {
         nama,

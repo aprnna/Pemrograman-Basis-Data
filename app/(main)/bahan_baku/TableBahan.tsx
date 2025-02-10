@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import Modal from "@/components/modal2";
 import FormBahan from "./formBahan";
 import { useDisclosure } from "@heroui/modal";
+import axios, { Axios, AxiosError, AxiosResponse } from "axios";
+import { httpErrorHandler } from "@/utils/httpErrorHandler";
 
 interface EditData {
   id: number;
@@ -57,13 +59,18 @@ export default function TableBahan({ querySearch, setDataExport }: any) {
       jumlah: formData.get("jumlah"),
       satuan: formData.get("satuan"),
     };
-    const response = await fetchApi(`/bahan/${editData.id}`, "PUT", dataUpdate);
 
-    if (response.status == 200) toast.success("Berhasil mengedit bahan baku");
-    else toast.error("Gagal mengedit bahan baku");
+    await fetchApi(`/bahan/${editData.id}`, "PUT", dataUpdate)
+      .then((response) => {
+        toast.success(response.message);
+      })
+      .catch(httpErrorHandler);
+
+    modal.onClose();
     setLoadingUpdate(false);
-    window.location.reload();
+    getBahan();
   };
+
   const handleDelete = async (id: number) => {
     console.log("Delete item with id:", id);
     setIdBahan(id);
@@ -77,7 +84,7 @@ export default function TableBahan({ querySearch, setDataExport }: any) {
     else toast.success("Berhasil menghapus Bahan");
     modal2.onClose();
     setLoadingDelete(false);
-    window.location.reload();
+    getBahan();
   };
 
   useEffect(() => {
