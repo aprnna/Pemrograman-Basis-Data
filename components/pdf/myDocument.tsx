@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   tableCell: {
     padding: 5,
     fontSize: 10,
-    textAlign: "center",
+    textAlign: "left",
     borderBottom: 1,
     borderStyle: "solid",
   },
