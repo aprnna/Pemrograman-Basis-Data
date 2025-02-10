@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         }
       }
     })
-    console.log(pesanan)
+
     if (!pesanan) return getResponse(null, 'no profit found', 404)
     let profit = 0
     let banyakPelanggan = 0
@@ -29,9 +29,7 @@ export async function POST(req: NextRequest) {
     pesanan.map((item: any) => {
       profit += item.total_harga
       banyakPelanggan += item.banyak_orang
-      const createdAt = parseISO(item.createdAt);
-      const updatedAt = parseISO(item.updatedAt);
-      const differenceInMinutess = differenceInMinutes(updatedAt, createdAt);
+      const differenceInMinutess = differenceInMinutes(item.updatedAt, item.createdAt);
 
       totalDifferenceInMinutes += differenceInMinutess; 
     })
@@ -42,10 +40,11 @@ export async function POST(req: NextRequest) {
       banyakPelanggan: banyakPelanggan,
       rataRataPesananSelesaiDalamJam: rataRataPesananSelesaiDalamJam 
     }
-
+    
     return getResponse(data, 'profit fetched successfully', 200)
   } catch (error) {
     return getResponse(null, 'error fetching profit', 400)
     
   }
 }
+ 
