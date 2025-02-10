@@ -7,6 +7,9 @@ const prisma = new PrismaClient()
 export async function GET() {
   try {
     const dataRiwayat = await prisma.mengelola_bahan.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         users: true, 
         bahan_baku: true, 

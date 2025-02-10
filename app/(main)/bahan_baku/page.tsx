@@ -54,12 +54,12 @@ export default function Page() {
     setLoading(true);
     const response = await fetchApi("/bahan", "POST", data);
 
-    if (response.status == 201)
+    if (response.status == 201) {
       toast.success("Berhasil menambahkan bahan baku");
-    else toast.error("Gagal menambahkan bahan baku");
+      window.location.reload();
+    } else toast.error(response.message);
     setLoading(false);
     modal.onClose();
-    window.location.reload();
   }
 
   return (

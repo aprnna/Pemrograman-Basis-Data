@@ -11,6 +11,9 @@ export async function GET() {
       where: {
         status: true, 
       },
+      orderBy:{
+        createdAt: 'desc'
+      }
     })
 
     return getResponse(bahan_baku, 'Bahan Baku fetched successfully', 200)
@@ -27,6 +30,16 @@ export async function POST(req: NextRequest) {
   if(!session) return getResponse(null, "Failed to insert bahan, user must login",200)
   try {
     const { nama, jumlah, satuan } = await req.json()
+    const existBahan = await prisma.bahan_baku.findFirst({
+      where: { 
+        AND: [
+          {nama, status: true,},
+          {satuan, status: true}
+        ] 
+      }
+    })
+
+    if(existBahan) return getResponse(null, "Bahan already exist", 200)
     const bahan_baku = await prisma.bahan_baku.create({
       data: {
         nama,
