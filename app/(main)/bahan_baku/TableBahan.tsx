@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import Modal from "@/components/modal2";
 import FormBahan from "./formBahan";
 import { useDisclosure } from "@heroui/modal";
-import axios, { Axios, AxiosError, AxiosResponse } from "axios";
 import { httpErrorHandler } from "@/utils/httpErrorHandler";
 
 interface EditData {
