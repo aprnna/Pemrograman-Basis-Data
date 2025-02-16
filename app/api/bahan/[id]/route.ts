@@ -12,16 +12,7 @@ export async function PUT(req:NextRequest,{params}:any) {
   try {
     const { id } = params;
     const { nama, jumlah, satuan } = await req.json();
-    const existBahan = await prisma.bahan_baku.findFirst({
-      where: {
-        AND: [
-          { nama, status: true },
-          { satuan, status: true },
-        ],
-      },
-    });
 
-    if (existBahan) return getResponse(null, "Bahan already exist", 400);
     const updateData = await prisma.bahan_baku.update({
       where: { id: parseInt(id) },
       data: { nama, jumlah: parseInt(jumlah), satuan },
