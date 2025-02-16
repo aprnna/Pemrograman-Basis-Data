@@ -11,7 +11,7 @@ export default function TablePesanan() {
 
   async function getMenu() {
     setLoading(true);
-    const { data } = await fetchApi("/pesanan?status=proses", "GET");
+    const { data } = await fetchApi("/pesanan", "GET");
 
     setMenu(data);
     setLoading(false);

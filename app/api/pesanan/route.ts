@@ -16,6 +16,9 @@ export async function GET(req: NextRequest) {
       include: {
         item_pesanan: true,
       },
+      orderBy:{
+        createdAt: "desc"
+      }
     });
 
     return getResponse(pesanan, "Pesanan fetched successfully", 200);
