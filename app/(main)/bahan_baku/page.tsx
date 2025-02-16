@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import SearchBar2 from "@/components/SearchBar2";
 
 import dynamic from "next/dynamic";
+import { httpErrorHandler } from "@/utils/httpErrorHandler";
 const PDFDocument = dynamic(() => import("@/components/pdf/myDocument"), {
   ssr: false,
 });
@@ -52,12 +53,12 @@ export default function Page() {
     };
 
     setLoading(true);
-    const response = await fetchApi("/bahan", "POST", data);
+    await fetchApi(`/bahan`, "POST", data)
+      .then((response) => {
+        toast.success(response.message);
+      })
+      .catch(httpErrorHandler);
 
-    if (response.status == 201) {
-      toast.success("Berhasil menambahkan bahan baku");
-      window.location.reload();
-    } else toast.error(response.message);
     setLoading(false);
     modal.onClose();
   }
