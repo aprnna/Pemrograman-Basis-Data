@@ -201,10 +201,10 @@ async function main() {
   const menuList = await prisma.menu.findMany();
 
   // Seed Pesanan
-  const pesananData = [];
 
   for (let month = 0; month < 12; month++) {
     for (let i = 0; i < 5; i++) {
+      const randomMenu = menuList[Math.floor(Math.random() * menuList.length)];
       const createdAt = new Date(
         2025,
         month,
@@ -215,48 +215,27 @@ async function main() {
       const updatedAt = new Date(createdAt);
 
       updatedAt.setHours(updatedAt.getHours() + 1);
-
-      pesananData.push({
-        id_user: userKasir.id, // Sesuai dengan user id kasir
-        no_meja: Math.floor(Math.random() * 10) + 1,
-        total_harga: Math.floor(Math.random() * 50000) + 10000,
-        status: "selesai",
-        banyak_orang: Math.floor(Math.random() * 5) + 1,
-        atas_nama: `Customer ${i + 1}`,
-        createdAt,
-        updatedAt,
+      await prisma.pesanan.create({
+        data: {
+          id_user: userKasir.id,
+          no_meja: Math.floor(Math.random() * 10) + 1,
+          total_harga: randomMenu.harga * (Math.floor(Math.random() * 10) + 1),
+          status: "selesai",
+          banyak_orang: Math.floor(Math.random() * 5) + 1,
+          atas_nama: `Customer ${i + 1}`,
+          createdAt,
+          updatedAt,
+          item_pesanan: {
+            create: {
+              id_menu: randomMenu.id,
+              jumlah: Math.floor(Math.random() * 5) + 1,
+            },
+          },
+        },
       });
     }
   }
-  await prisma.pesanan.createMany({
-    data: pesananData,
-  });
-
-  // for (let month = 0; month < 12; month++) {
-  //   for (let i = 0; i < 5; i++) {
-  //     const randomMenu = menuList[Math.floor(Math.random() * menuList.length)];
-
-  //     await prisma.pesanan.create({
-  //       data: {
-  //         id_user: userKasir.id,
-  //         no_meja: Math.floor(Math.random() * 10) + 1,
-  //         total_harga: randomMenu.harga * (Math.floor(Math.random() * 5) + 1),
-  //         status: "selesai",
-  //         banyak_orang: Math.floor(Math.random() * 5) + 1,
-  //         atas_nama: `Customer ${i + 1}`,
-  //         createdAt: new Date(2025, month, Math.floor(Math.random() * 28) + 1),
-  //         updatedAt: new Date(2025, month, Math.floor(Math.random() * 28) + 1),
-  //         item_pesanan: {
-  //           create: {
-  //             id_menu: randomMenu.id,
-  //             jumlah: Math.floor(Math.random() * 5) + 1,
-  //           },
-  //         },
-  //       },
-  //     });
-  //   }
-  // }
-  // console.log({ users, bahan_Baku, pesanan });
+  // console.log({ userData, bahan_Baku, pesanan });
 }
 
 main()

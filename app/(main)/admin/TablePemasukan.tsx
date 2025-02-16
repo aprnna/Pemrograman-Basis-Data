@@ -4,7 +4,7 @@ import fetchApi from "@/utils/fetchApi";
 import Table from "@/components/table";
 import { Loading } from "@/components/loading";
 
-export default function TablePemasukan() {
+export default function TablePemasukan({ setDataExport }: any) {
   const [pesanan, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,6 +12,7 @@ export default function TablePemasukan() {
     setLoading(true);
     const { data } = await fetchApi("/pesanan", "GET");
 
+    setDataExport(data);
     setMenu(data);
     setLoading(false);
   }

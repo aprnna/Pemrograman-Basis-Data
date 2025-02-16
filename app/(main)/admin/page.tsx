@@ -9,13 +9,47 @@ import { RangeCalendar } from "@heroui/react";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import MyLineChart from "@/components/lineChart";
 
+import dynamic from "next/dynamic";
+const PDFDocument = dynamic(() => import("@/components/pdf/myDocument"), {
+  ssr: false,
+});
+
 interface Data {
   profit: number;
   banyakPelanggan: number;
   rataRataPesananSelesaiDalamJam: number;
 }
+const tableHeaders = [
+  {
+    key: "atas_nama",
+    label: "Atas Nama",
+    render: (value: any) => value,
+  },
+  {
+    key: "banyak_orang",
+    label: "Banyak Orang",
+    render: (value: any) => value,
+  },
+  {
+    key: "total_harga",
+    label: "Total Harga",
+    render: (value: any) => value,
+  },
+  {
+    key: "createdAt",
+    label: "Dibuat",
+    render: (value: any) => new Date(value).toLocaleDateString("id-ID"),
+  },
+  {
+    key: "status",
+    label: "Status",
+    render: (value: any) => value,
+  },
+];
+
 export default function Page() {
   const [mothlyProfits, setMonthlyProfits] = useState([]);
+  const [dataExport, setDataExport] = useState([]);
   const [data, setData] = useState<Data>({
     profit: 0,
     banyakPelanggan: 0,
@@ -77,7 +111,17 @@ export default function Page() {
   return (
     <div className="w-full h-screen bg-slate-50 flex flex-col">
       <TopContent />
-      <Head />
+      <Head>
+        {dataExport.length > 0 && (
+          <PDFDocument
+            tableHeaders={tableHeaders}
+            data={dataExport}
+            titleDocument="Pendapatan"
+            nameFile="Report-Pendapatan"
+            button="Export Pendapatan"
+          />
+        )}
+      </Head>
       <div className="flex overflow-hidden">
         <div className="flex-1  flex flex-col overflow-auto">
           <section className="flex w-full gap-5 justify-center my-4 px-14">
@@ -117,7 +161,7 @@ export default function Page() {
                   </h1>
                 </div>
               </div>
-              <TablePemasukan />
+              <TablePemasukan setDataExport={setDataExport} />
             </div>
           </section>
         </div>
